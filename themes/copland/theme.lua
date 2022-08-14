@@ -39,6 +39,8 @@ theme.awesome_icon                              = theme.dir .."/icons/awesome.pn
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_unsel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
+theme.mem                                       = theme.dir .. "/icons/mem.png"
+theme.temperature                               = theme.dir .. "/icons/temp.png"
 theme.vol                                       = theme.dir .. "/icons/vol.png"
 theme.vol_low                                   = theme.dir .. "/icons/vol_low.png"
 theme.vol_no                                    = theme.dir .. "/icons/vol_no.png"
@@ -154,6 +156,20 @@ theme.mpd = lain.widget.mpd({
         end
 
         widget:set_markup(markup.font(theme.font, markup(blue, title) .. artist))
+    end
+})
+-- MEM
+local memicon = wibox.widget.imagebox(theme.mem)
+local mem = lain.widget.mem({
+    settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+    end
+})
+-- Coretemp
+local tempicon = wibox.widget.imagebox(theme.temperature)
+local temp = lain.widget.temp({
+    settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. coretemp_now .. "°C "))
     end
 })
 
@@ -373,6 +389,12 @@ function theme.at_screen_connect(s)
             bar_spr,
             volicon,
             volumewidget,
+            bar_spr,
+            memicon,
+            mem,
+            bar_spr,
+            tempicon,
+            temp,
             bar_spr,
             mytextclock
         },
