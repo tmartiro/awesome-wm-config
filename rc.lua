@@ -240,13 +240,24 @@ globalkeys = mytable.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
 
-    -- Tag browsing
-    awful.key({ modkey,   "Shift",        }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,   "Shift",        }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
+    -- Resizing
+    awful.key({ modkey,   "Shift"}, "Right", function () awful.tag.incmwfact(0.05) end,
+              {description = "increase master width factor", group = "layout"}),
+    awful.key({ modkey,   "Shift"}, "Left", function () awful.tag.incmwfact(-0.05) end,
+              {description = "decrease master width factor", group = "layout"}),
+
+    -- Layout manipulation
+    awful.key({ modkey, "Shift"}, "j", function () awful.client.swap.byidx(1)    end,
+              {description = "swap with next client by index", group = "client"}),
+    awful.key({ modkey, "Shift"}, "k", function () awful.client.swap.byidx(-1)    end,
+              {description = "swap with previous client by index", group = "client"}),
+
+    -- awful.key({ modkey,   "Shift",        }, "Left",   awful.tag.viewprev,
+    --           {description = "view previous", group = "tag"}),
+    -- awful.key({ modkey,   "Shift",        }, "Right",  awful.tag.viewnext,
+    --           {description = "view next", group = "tag"}),
+    -- awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+              -- {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
     awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
@@ -254,32 +265,26 @@ globalkeys = mytable.join(
     awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
 
-    -- Default client focus
-    awful.key({ modkey,           }, "Left", function () awful.client.focus.byidx(1) end,
-        {description = "focus next by index", group = "client"}),
-    awful.key({ modkey,           }, "Right", function () awful.client.focus.byidx(-1) end,
-        {description = "focus previous by index", group = "client"}),
-
     -- By-direction client focus
-    awful.key({ modkey }, "j",
+    awful.key({ modkey }, "Down",
         function()
             awful.client.focus.global_bydirection("down")
             if client.focus then client.focus:raise() end
         end,
         {description = "focus down", group = "client"}),
-    awful.key({ modkey }, "k",
+    awful.key({ modkey }, "Up",
         function()
             awful.client.focus.global_bydirection("up")
             if client.focus then client.focus:raise() end
         end,
         {description = "focus up", group = "client"}),
-    awful.key({ modkey }, "h",
+    awful.key({ modkey }, "Left",
         function()
             awful.client.focus.global_bydirection("left")
             if client.focus then client.focus:raise() end
         end,
         {description = "focus left", group = "client"}),
-    awful.key({ modkey }, "l",
+    awful.key({ modkey }, "Right",
         function()
             awful.client.focus.global_bydirection("right")
             if client.focus then client.focus:raise() end
